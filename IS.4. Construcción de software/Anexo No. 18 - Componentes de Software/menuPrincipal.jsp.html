@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page import="beans.DigitadorBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+
+</head>
+
+<%	
+   DigitadorBean actualUser = (DigitadorBean) session.getAttribute("usuario"); 
+%>
+<style type="text/css">
+* {
+margin:0px;
+padding:0px;
+} 
+
+.panel{
+width:960px;
+beight:40px;
+margin:50px auto auto auto;
+}
+
+.botones li {
+list-style:none;
+float:left;
+width:192px;
+height:40px;
+background-color: #3795A6;
+
+text-align:center;
+line-height:40px;
+display:block;
+}
+
+.botones li a {
+color: #000000  ;
+text-decoration:none;
+display:block;
+
+}
+
+.botones li a:hover{
+background-color: #95C7D7;
+color: #FFFFFF;
+
+}
+
+
+</style>
+
+<body background="Recursos/imagenes/fondoPrincipal.jpg">
+
+<table width="976" height="612" border="1" align="center"  >
+  <tr align="center">
+    <td width="731" height="54"  >
+    
+	  <p><a href="menuPrincipal.jsp"><img  src="Recursos/imagenes/logo.jpg" width="106" height="89" border="0"  align="left" /></a></p>
+	  
+    <H2 align="justify"><br />Centro Medico Huarochiri       </H2></td>
+	 
+    <td width="229" border  ><p><h3>Digitador:</h3> </p>
+      <p><%=actualUser.getApeDig() %>, <%=actualUser.getNomDig() %></p>
+	  <p><a href="<%=request.getContextPath() %>/loginLogout">cerrar sesion</a></p></td>
+</td>
+  </tr>
+  <tr align="center">
+    <td height="43" colspan="2">
+	<div class="botones" align="center">
+	<ul>
+	<li><a  href="menuPrincipal.jsp"><h3>Inicio</h3></a></li>
+	<li><a href="registrarPaciente.jsp"><h3>Registrar Paciente</h3></a></li>
+	<li><a href="historiaClinica.jsp">
+	<h3>Historia Clinica </h3>
+	</a></li>
+	<li><a href="consultarpaciente.jsp"><h3>Consultar Paciente</h3></a></li>
+	<li><a href="contactenos.jsp"><h3>Contactenos</h3></a></li>
+	</ul></div>	</td>
+  </tr>
+  <tr align="center">
+    <td height="373" colspan="2">
+	<table width="640" height="310" border="0" align="center">
+  <tr align="center">
+    <td width="312" height="206" > <img src="Recursos/imagenes/logo.jpg"  > </td>
+    <td width="312"><h2><u>MINSA</u></h2>
+      <p>&nbsp;</p>
+      <p>Dar atencion altamente especializada a la mujer y al neonato de alto riego en nuestro centro de salud es nuestra principal mision como el equipo de medico que somos. </p></td>
+  </tr>
+</table><p>&nbsp;  </p>
+  </tr>
+  <tr align="center">
+    <td height="89" colspan="2"><br>Copyright &copy; 2014 Jonathan Jesus Pinto Valiente<br >
+    Todos los derechos reservados.</td>
+  </tr>
+</table>
+
+
+
+</body>
+</html>

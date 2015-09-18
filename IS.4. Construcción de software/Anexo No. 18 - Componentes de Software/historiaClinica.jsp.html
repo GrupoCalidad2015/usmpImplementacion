@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@page import="beans.DigitadorBean"%>
+<%@page import="beans.FichaPacienteBean"%>
+<%@page import="java.util.Vector"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+</head>
+
+<style type="text/css">
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.panel {
+	width: 960px;
+	beight: 40px;
+	margin: 50px auto auto auto;
+}
+
+.botones li {
+	list-style: none;
+	float: left;
+	width: 192px;
+	height: 40px;
+	background-color: #3795A6;
+	text-align: center;
+	line-height: 40px;
+	display: block;
+}
+
+.botones li a {
+	color: #000000;
+	text-decoration: none;
+	display: block;
+}
+
+.botones li a:hover {
+	background-color: #95C7D7;
+	color: #FFFFFF;
+}
+</style>
+<%	
+   DigitadorBean actualUser = (DigitadorBean) session.getAttribute("usuario"); 
+ 
+	Vector<FichaPacienteBean> dato = (Vector)request.getAttribute("pacientes");
+	%>
+<body background="Recursos/imagenes/fondoPrincipal.jpg">
+
+	<table width="969" height="612" border="1" align="center">
+		<tr align="center">
+			<td width="724" height="54">
+
+				<p>
+					<a href="menuPrincipal.jsp"><img
+						src="Recursos/imagenes/logo.jpg" width="96" height="89" border="0"
+						align="left" /></a>				</p>
+
+				<H2   align="left">
+		  <br />Centro Medico Huarochiri				</H2>			</td>
+
+		    <td width="229" border  ><p><h3>Digitador:</h3> </p>
+      <p><%=actualUser.getApeDig() %>, <%=actualUser.getNomDig() %></p>
+	   <p><a href="<%=request.getContextPath() %>/loginLogout">cerrar sesion</a></p></td>
+		</tr>
+		<tr align="center">
+			<td height="43" colspan="2">
+				<div class="botones" align="center">
+					<ul>
+						<li><a href="menuPrincipal.jsp"><h3>Inicio</h3></a></li>
+						<li><a href="registrarPaciente.jsp"><h3>Registrar
+									Paciente</h3></a></li>
+						<li><a href="historiaClinica.jsp">
+								<h3>Historia Clinica</h3>
+						</a></li>
+						<li><a href="consultarpaciente.jsp"><h3>Consultar
+									Paciente</h3></a></li>
+						<li><a href="contactenos.jsp"><h3>Contactenos</h3></a></li>
+					</ul>
+				</div>			</td>
+		</tr>
+		<tr align="center">
+		  <td height="373" colspan="2">
+				<table width="677" height="311" border="1" align="center">
+				<form action="listarHCPacientes" method="post">
+					
+						<tr>
+						  <td height="43" align="left">
+							<p>Tipo de Busqueda: 
+									<select name="txt_tipoDato">
+									  <option value="dni">DNI</option>
+									 <!--   <option value="nombre">Nombre</option>-->
+							      </select> 
+							      <input name="txt_dato" type="text" value="" />
+							      <input name="" type="submit"  value="Buscar"/>
+							</p>
+							<p>&nbsp;</p>
+							<% if(dato!= null){
+										for (int i = 0; i < dato.size(); i++) {
+									%>
+							<p><b>Nombre del Paciente:</b><b><%=dato.get(i).getApellidoPaterno()%> <%=dato.get(i).getApellidoMaterno()%>,<%=dato.get(i).getNombre()%></b></p> 
+							<%
+										}}
+									%>							</td>
+						  <td height="43" align="left">
+						    <p>
+						      <% if(dato!= null){
+										for (int i = 0; i < dato.size(); i++) {
+									%>
+					        </p>
+						    <p>&nbsp;</p>
+						    <p align="center">	<b>	Numero Expediente:</b>
+							</p><p align="center"><%=dato.get(i).getExpediente()%></br></p>
+					          <%
+										}}
+									%>	
+						      
+						      
+		                  </td>
+						</tr>
+		       </form>
+						<td width="477" >
+						<table width="447" height="83" border="0" align="center">
+								<tr>
+								
+								  <td width="18"><H3>&nbsp;</H3></td>
+								  <td width="170"><H3>DNI</H3></td>
+								  <td width="10"><H3>&nbsp;</H3></td>
+								  <td width="237"><H3>Descripcion</H3></td>
+								</tr>
+								<% 
+								String datito="sin data";
+								String datito1="sin data";
+								if(dato!=null){
+										for (int i = 0; i < dato.size(); i++) {
+									%>
+								<tr>
+									
+									<td><input  name="seleccion" type="radio"  value="<%=dato.get(i).getidT_FichaPaciente()%>" checked/></td>
+									<td><%=dato.get(i).getDni()%></td>
+									<td>&nbsp;</td>
+								  <td>Descripcion</td>
+								</tr>
+								<%
+										}
+										datito=""+dato.get(0).getidT_FichaPaciente();
+										datito1=dato.get(0).getExpediente();
+								}
+									%>
+						  </table>						</td>
+						<td width="190" align="center">
+							<div class="botones" align="center">
+								<ul>
+									<p>
+								  <h3>Registrar:</h3>
+									</p>
+									<li><a href="<%=request.getContextPath() %>/enviarDatosJSP?dato=<%=datito%>&dato1=<%=datito1%>">
+											<h3>Historia Clinica</h3>
+									</a></li>
+									<li><a href="registrarExamenLab.jsp">
+											<h3>Examenes de Lab.</h3>
+									</a></li>
+									<li><a href="registrarTratamiento.jsp">
+											<h3>Tratamiento</h3>
+									</a></li>
+									<li><a href="registrarProcuto.jsp">
+											<h3>Producto</h3>
+									</a></li>
+									<li><a href="registrarAlta.jsp">
+											<h3>Alta</h3>
+									</a></li>
+								</ul>
+							</div>						</td>
+
+						</tr>
+		</table>		</tr>
+		<tr align="center">
+			<td height="89" colspan="2"><br>Copyright &copy; 2014 Jonathan Jesus
+		  Pinto Valiente<br> Todos los derechos reservados.</td>
+		</tr>
+	</table>
+
+
+
+</body>
+</html>
